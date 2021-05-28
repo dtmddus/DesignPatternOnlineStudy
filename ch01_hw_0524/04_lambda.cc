@@ -10,7 +10,7 @@ public:
     } 
 };
 
-int main2() {
+int main() {
     std::unordered_map<std::string, std::function<int(const int, const int)>> operator_map;
     auto add_f = [](const int a, const int b) -> int { return a+b; };
     auto sub_f = [](const int a, const int b) -> int { return a-b; };

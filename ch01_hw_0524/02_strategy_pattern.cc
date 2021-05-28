@@ -140,8 +140,9 @@ public:
 };
 
 
-int main2() {
+int main() {
     int a = 4, b = 2;
+
     shared_ptr<Calculator> cal_add = make_shared<AddCalculator>(a, b);
     cal_add->calculate();
     shared_ptr<Calculator> cal_sub = make_shared<SubCalculator>(a, b);
@@ -159,5 +160,6 @@ int main2() {
     shared_ptr<Operator> sub_operator = make_shared<Sub>();
     calculator->setOperator(add_operator);
     calculator->calculate();
+    
     return 0;
 }

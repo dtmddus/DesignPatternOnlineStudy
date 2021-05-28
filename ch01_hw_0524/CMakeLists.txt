@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.15)
+project(Ch01_Homework)
+add_definitions("-Wall -O3 -std=c++17")
+add_executable(01_dirty_code 01_dirty_code.cc)
+add_executable(02_strategy_pattern 02_strategy_pattern.cc)
+add_executable(03_template_method 03_template_method_pattern.cc)
+add_executable(04_lambda 04_lambda.cc)
