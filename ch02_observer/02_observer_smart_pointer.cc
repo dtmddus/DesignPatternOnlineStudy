@@ -7,7 +7,7 @@
 #include <vector>
 using namespace std;
 
-class IObserver : public enable_shared_from_this<IObserver> {
+class IObserver { // : public enable_shared_from_this<IObserver> {
 public:
     virtual ~IObserver() = default;
     virtual void update(int cpu) = 0;
@@ -52,14 +52,19 @@ class DisplayMachine : public IObserver {
 public: 
     DisplayMachine() {
         machine_id_ = machine_id_count++;
-        //provider_.attach(shared_ptr<IObserver>(this));
     }
     void attach(const shared_ptr<ResourceProvider>& provider) {
         provider_ = provider;
-        provider_->attach(shared_from_this());
+        auto p = provider_.lock();
+        if (p) {
+            p->attach(shared_ptr<IObserver>(this)); 
+        }
     }
     virtual ~DisplayMachine() {
-        provider_->detach(shared_from_this());
+        auto p = provider_.lock();
+        if (p) {
+            p->detach(shared_ptr<IObserver>(this));
+        }
     }
     void update(int cpu) override {
         cpu_ = cpu;
@@ -71,7 +76,7 @@ public:
 private:
     unsigned int machine_id_;
     int cpu_;
-    shared_ptr<ResourceProvider> provider_;
+    weak_ptr<ResourceProvider> provider_;
 };
 
 int main() {
