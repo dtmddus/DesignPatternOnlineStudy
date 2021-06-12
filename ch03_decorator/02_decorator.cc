@@ -15,7 +15,7 @@ protected:
 };
 
 // component
-class Text : public IHTML {
+class Text final : public IHTML {
 public:
     explicit Text(string text) : text_(text) { 
         create_script(); 
@@ -28,7 +28,7 @@ private:
     string text_;  // 데이터 중복 저장은 신경쓰지 않는다.
 };
 
-class Image : public IHTML {
+class Image final : public IHTML {
 public:
     Image(string path, int w, int h) : path_(path), width_(to_string(w)), height_(to_string(h)) { 
         create_script(); 
@@ -55,7 +55,7 @@ private:
     string end_script_;
 };
 
-class Table : public IWrapperTag {
+class Table final : public IWrapperTag {
 public:
     Table(unique_ptr<IHTML> html, int r, int c) : html_(move(html)), rows_(to_string(r)), cols_(to_string(c)) { create_script(); };
     ~Table() = default;
@@ -72,7 +72,7 @@ private:
     unique_ptr<IHTML> html_;
 };
 
-class Link : public IWrapperTag {
+class Link final : public IWrapperTag {
 public:
     Link(unique_ptr<IHTML> html, string path) : html_(move(html)), path_(path) { create_script(); };
     ~Link() = default;
@@ -88,7 +88,7 @@ private:
     unique_ptr<IHTML> html_;
 };
 
-class Font : public IWrapperTag {
+class Font final : public IWrapperTag {
 public:
     Font(unique_ptr<IHTML> html, int size) : html_(move(html)), size_(to_string(size)) { create_script(); };
     ~Font() = default;
