@@ -20,7 +20,7 @@ public:
     void test() override { cout << "test " << name << endl; };
     void report() override { cout << "report " << name << endl; };
 private:
-    string name = "AndroidOS";
+    const string name = "AndroidOS";
 };
 
 class GingerBread final : public AndroidOS {
@@ -29,7 +29,7 @@ public:
     void test() override { cout << "test " << name << endl; };
     void report() override { cout << "report " << name << endl; };
 private:
-    string name = "GingerBread";
+    const string name = "GingerBread";
 };
 
 class Nougat final : public AndroidOS {
@@ -38,7 +38,7 @@ public:
     void test() override { cout << "test " << name << endl; };
     void report() override { cout << "report " << name << endl; };
 private:
-    string name = "Nougat";
+    const string name = "Nougat";
 };
 
 class IPhoneOS : public IVirtualSystem {
@@ -47,7 +47,7 @@ public:
     void test() override { cout << "test " << name << endl; };
     void report() override { cout << "report " << name << endl; };
 private:
-    string name = "IPhoneOS";
+    const string name = "IPhoneOS";
 };
 
 class IPhoneOS_7 final : public IPhoneOS {
@@ -56,7 +56,7 @@ public:
     void test() override { cout << "test " << name << endl; };
     void report() override { cout << "report " << name << endl; };
 private:
-    string name = "IPhoneOS_7";
+    const string name = "IPhoneOS_7";
 };
 
 class IPhoneOS_14 final : public IPhoneOS {
@@ -65,7 +65,7 @@ public:
     void test() override { cout << "test " << name << endl; };
     void report() override { cout << "report " << name << endl; };
 private:
-    string name = "IPhoneOS_14";
+    const string name = "IPhoneOS_14";
 };
 
 class Windows : public IVirtualSystem {
@@ -74,7 +74,7 @@ public:
     void test() override { cout << "test " << name << endl; };
     void report() override { cout << "report " << name << endl; };
 private:
-    string name = "Windows";
+    const string name = "Windows";
 };
 
 class Windows_98 final : public Windows {
@@ -83,7 +83,7 @@ public:
     void test() override { cout << "test " << name << endl; };
     void report() override { cout << "report " << name << endl; };
 private:
-    string name = "Windows98";
+    const string name = "Windows98";
 };
 
 class Windows_10 final : public Windows {
@@ -92,7 +92,7 @@ public:
     void test() override { cout << "test " << name << endl; };
     void report() override { cout << "report " << name << endl; };
 private:
-    string name = "Windows10";
+    const string name = "Windows10";
 };
 
 class IVersionFactory {
@@ -156,6 +156,7 @@ public:
             virtual_system->boot();
             virtual_system->test();
             virtual_system->report();
+            delete virtual_system;
             cout << "finished .." << endl;
         }
     }
@@ -179,7 +180,7 @@ protected:
             }
         }
     }
-    IVersionFactory* getVersionFactory() {
+    IVersionFactory* getVersionFactory() const {
         return version_factory_;
     }
     virtual IVirtualSystem* buildVirtualOS(OS_Name os_name) = 0;
