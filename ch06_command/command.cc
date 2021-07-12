@@ -11,13 +11,13 @@ using namespace std;
 
 template<typename ... Args> 
 std::string string_format(const std::string& format, Args ... args) {
-	size_t size = snprintf(nullptr, 0, format.c_str(), args ...) + 1;
-	if (size <= 0) {
-		throw std::runtime_error("Error during formatting.");
-	}
-	std::unique_ptr<char[]> buf(new char[size]);
-	snprintf(buf.get(), size, format.c_str(), args ...);
-	return std::string(buf.get(), buf.get() + size - 1);
+    size_t size = snprintf(nullptr, 0, format.c_str(), args ...) + 1;
+    if (size <= 0) {
+        throw std::runtime_error("Error during formatting.");
+    }
+    std::unique_ptr<char[]> buf(new char[size]);
+    snprintf(buf.get(), size, format.c_str(), args ...);
+    return std::string(buf.get(), buf.get() + size - 1);
 }
 
 // Receiver
@@ -234,8 +234,8 @@ void test() {
     job_list[5] = make_shared<HomeApplianceOnJob>(microwave);
 
     auto current = std::chrono::system_clock::now();
-	auto duration = current.time_since_epoch();
-	auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
+    auto duration = current.time_since_epoch();
+    auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
     mt19937_64 gen(millis);
     uniform_int_distribution<__int64> distrib(0, 5);
     set<int> job_idxs;
