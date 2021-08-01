@@ -59,9 +59,7 @@ public:
         members_.push_back(e);
     }
     void remove(shared_ptr<Employee> e) override {
-        if (find(members_.begin(), members_.end(), e) != members_.end()) {
-            cout << e->getName() << " (" << e->getPosition() << ") was deleted" << endl;
-        }
+        members_.erase(find(members_.begin(), members_.end(), e));
     }
     void print() override {
         Employee::print();
@@ -90,8 +88,13 @@ int main() {
 
     shared_ptr<Employee> commerce_developer = make_shared<Developer>("Jason", "CommerceDeveloper", 40);
     shared_ptr<Employee> commerce_designer = make_shared<Designer>("Sunny", "CommerceDesigner", 25);
+    shared_ptr<Employee> commerce_second_designer = make_shared<Designer>("Helen", "CommerceDesigner", 25);
     commerce_lead->add(commerce_developer);
     commerce_lead->add(commerce_designer);
+    commerce_lead->add(commerce_second_designer);
+    
+    ceo->print();
+    commerce_lead->remove(commerce_designer);
 
     ceo->print();
     return 0;
