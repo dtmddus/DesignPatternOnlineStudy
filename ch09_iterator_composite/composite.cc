@@ -9,7 +9,7 @@ using namespace std;
 // base component class
 class Employee {
 public:
-    Employee(string name, string group, int salary, string duty) : name_(name), group_(group), salary_(salary), duty_(duty) {}
+    Employee(string name, string position, int salary, string duty) : name_(name), position_(position), salary_(salary), duty_(duty) {}
     virtual ~Employee() {}
     virtual void add(shared_ptr<Employee> e) {}
     virtual void remove(shared_ptr<Employee> e) {}
@@ -21,19 +21,19 @@ public:
 public: 
     virtual string getName() final { return name_; }
     virtual string getDuty() final { return duty_; }
-    virtual string getPosition() final { return group_; }
+    virtual string getPosition() final { return position_; }
     virtual int getSalary() final { return salary_; }
 private:
     string name_;
     string duty_;
-    string group_;
+    string position_;
     int salary_;
 };
 
 // leaf class
 class Developer final : public Employee {
 public:
-    Developer(string name, string group, int salary) : Employee(name, group, salary, "Developer") {}
+    Developer(string name, string position, int salary) : Employee(name, position, salary, "Developer") {}
     virtual ~Developer() {}
     void print() override {
         Employee::print();
@@ -43,7 +43,7 @@ public:
 // leaf class
 class Designer final : public Employee {
 public:
-    Designer(string name, string group, int salary) : Employee(name, group, salary, "Designer") {}
+    Designer(string name, string position, int salary) : Employee(name, position, salary, "Designer") {}
     virtual ~Designer() {}
     void print() override {
         Employee::print();
@@ -53,26 +53,26 @@ public:
 // composite class
 class Manager final : public Employee {
 public:
-    Manager(string name, string group, int salary) : Employee(name, group, salary, "Manager") {}
+    Manager(string name, string position, int salary) : Employee(name, position, salary, "Manager") {}
     virtual ~Manager() {}
     void add(shared_ptr<Employee> e) override {
-        members.push_back(e);
+        members_.push_back(e);
     }
     void remove(shared_ptr<Employee> e) override {
-        if (find(members.begin(), members.end(), e) != members.end()) {
+        if (find(members_.begin(), members_.end(), e) != members_.end()) {
             cout << e->getName() << " (" << e->getPosition() << ") was deleted" << endl;
         }
     }
     void print() override {
         Employee::print();
         cout << endl;
-        for (auto member: members) {
+        for (auto member: members_) {
             member->print();
             cout << endl;
         }
     }
 private:
-    vector<shared_ptr<Employee>> members;
+    vector<shared_ptr<Employee>> members_;
 };
 
 
